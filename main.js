@@ -73,7 +73,7 @@ const productos = [
 let carrito = [];
 let opciones
 do {
-    opciones = parseInt(prompt("Bienvenido, digite una opción:\n1. Mostrar productos\n2. Promociones\n3. Disponibilidad\n4. Productos nuevos\n6. Carrito y Salir"));
+    opciones = parseInt(prompt("Bienvenido, digite una opción:\n1. Mostrar productos\n2. Promociones\n3. Disponibilidad\n4. Productos mas economico\n6. Carrito y Salir"));
 
     switch (opciones) {
         case 1:
@@ -104,25 +104,31 @@ do {
             mostrarDisponibilidad();
             break;
         case 4:
-            mostrarNuevosProductos();
-            break;
-        case 5:
             mostrarProductoMasEconomico();
-            break;
-        default:
-            alert("Opción inválida");
             break;
     }
 } while (opciones !== 6);
 
+if (opciones == 6) {
+    mostrarCarrito();
 
+}
 
-function agregarAlCarrito(idProducto, cantidad) {
+function pagar(valorTotal, cantidadRecibido) {
+    if (cantidadRecibido >= valorTotal) {
+        const cambio = Math.round(cantidadRecibido - valorTotal);
+        alert(`Cambio: $${cambio}`);
+    } else {
+        alert("La cantidad recibida es insuficiente para cubrir el total de la compra.");
+    }
+}
+function agregarAlCarrito(idProducto, cantidad, valor) {
     const producto = productos.find(producto => producto.id === idProducto);
 
     if (producto) {
-        carrito.push({ producto, cantidad });
-        alert(`Se agregó ${cantidad} ${producto.nombre}(s) al carrito.`);
+        carrito.push({ producto, cantidad, valor });
+        reducirStock(producto.id, cantidad);
+        alert(`Se agregó ${cantidad} ${producto.nombre} al carrito.`);
     } else {
         alert(`El producto con ID ${idProducto} no existe.`);
     }
@@ -130,12 +136,40 @@ function agregarAlCarrito(idProducto, cantidad) {
 
 function mostrarCarrito() {
     if (carrito.length === 0) {
-      alert("El carrito está vacío.");
+        alert("El carrito está vacío.");
     } else {
-      alert("Contenido del carrito: \n"+carrito);
-      
+        let subtotal = 0;
+        let mensaje = "Contenido del carrito:\n";
+
+        carrito.forEach(item => {
+            const { producto, cantidad } = item;
+            const totalItem = producto.precio * cantidad;
+
+            subtotal += totalItem;
+            mensaje += `Producto: ${producto.nombre}\n`;
+            mensaje += `Cantidad: ${cantidad}\n`;
+            mensaje += `Precio unitario: $${producto.precio}\n`;
+            mensaje += `Total: $${totalItem}\n\n`;
+        });
+
+        const iva = Math.round(subtotal * 0.21);
+        const total = Math.round(subtotal + iva);
+
+        mensaje += `Subtotal: $${subtotal}\n`;
+        mensaje += `IVA (21%): $${iva}\n`;
+        mensaje += `Total con IVA: $${total}`;
+
+        alert(mensaje);
+
+        const cantidadRecibida = parseFloat(prompt("Ingrese la cantidad recibida:"));
+        pagar(total, cantidadRecibida);
     }
-  }
+}
+
+function reducirStock(id, cantidad) {
+    const producto = productos.find(producto => producto.id === id);
+    producto.stock -= cantidad;
+}
 
 function validarStock(idProducto, cantidad) {
     const producto = productos.find(producto => producto.id === idProducto);
@@ -163,22 +197,46 @@ function mostrarProductos() {
 }
 
 function mostrarPromociones() {
-    const productosConDescuento = productos.precio.map((descuento) => {
-        productosFrescos.precio = Math.round(productos.precio * 0.8);
-        return productosFrescos;
+    const today = new Date();
+    const promociones = productos.filter(producto => {
+        const fechaVencimiento = new Date(producto.fechaVencimiento);
+        const tiempoRestante = fechaVencimiento.getTime() - today.getTime();
+        const diasRestantes = Math.floor(tiempoRestante / (1000 * 3600 * 24)); // Convierto el tiempo a días
+
+        return diasRestantes <= 15; // Promociono los productos que tienen menos días para vencerse
     });
+
+    if (promociones.length === 0) {
+        alert("No hay promociones disponibles en este momento.");
+    } else {
+        alert("¡Promociones disponibles!");
+        let mensaje;
+        promociones.forEach(producto => {
+            const descuento = producto.precio * 0.2; // Aplicar un descuento del 20%
+            const precioPromocional = producto.precio - descuento;
+            mensaje += `Producto: ${producto.nombre} Precio: $${producto.precio} Descuento: $${descuento} Precio promocional: $${precioPromocional} \n`;
+        });
+        return mensaje;
+    }
 }
+
 
 function mostrarDisponibilidad() {
- 
-}
+    let mensaje;
+    productos.forEach(producto => {
+        mensaje += `${producto.nombre} Disponible: ${producto.stock} Und\n`;
+    });
+    return alert(mensaje);
 
-function mostrarNuevosProductos() {
-    // Lógica para mostrar los nuevos productos
-    console.log("Mostrando nuevos productos...");
 }
 
 function mostrarProductoMasEconomico() {
-    // Lógica para mostrar el producto más económico
-    console.log("Mostrando producto más económico...");
+    let productoMasEconomico = productos[0];
+
+    for (let i = 1; i < productos.length; i++) {
+        if (productos[i].precio < productoMasEconomico.precio) {
+            productoMasEconomico = productos[i];
+        }
+    }
+    return alert(`El producto más económico es: ${productoMasEconomico.nombre} con precio: $${productoMasEconomico.precio}`);
 }
