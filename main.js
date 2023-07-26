@@ -266,7 +266,7 @@ function mostrarProductos() {
                     <div class='cvp'>
                         <h5 class="card-title font-weight-bold">${producto.nombre}</h5>
                         <p class="card-text">$${producto.precio}</p>
-                        <button class="btn btn-primary cart px-auto">ADD TO CART</button>
+                        <button class="btn btn-primary cart px-auto" onclick="agregarAlCarrito(${producto.id}, 1, ${producto.precio})">ADD TO CART</button>
                     </div>
                 </div>
             </div>
