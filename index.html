@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.0/build/global/luxon.min.js"></script>
 </head>
 
 <body>
@@ -24,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="#">Precios</a>
+                    <!-- <a class="nav-link" href="#">Precios</a> -->
                     <a class="nav-link " href="carrito.html">Carrito</a>
                 </div>
             </div>
@@ -34,10 +36,13 @@
     <div>
         <h1 class="text-center">Bienvenido a la Tienda Online</h1>
         <h2 class="text-center">Productos Disponibles</h2>
-    </div>
-    <div class='container-fluid d-flex flex-wrap gap-3' id="productos-container">
-
-
+        <div class='container-fluid d-flex flex-wrap gap-3' id="productos-container">
+        </div>
+        <div class="text-center mt-3 mb-5">
+            <button class="btn btn-success mx-2" onclick="mostrarPromociones()">Mostrar Promociones</button>
+            <button class="btn btn-success mx-2" onclick="mostrarDisponibilidad()">Mostrar Disponibilidad</button>
+            <button class="btn btn-success mx-2" onclick="mostrarProductoMasEconomico()">Producto Más Económico</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

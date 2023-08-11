@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     if (window.location.pathname.includes('carrito.html')) {
         mostrarCarrito();
     } else {
@@ -15,7 +15,7 @@ const productos = [
         precio: 2.50,
         stock: 50,
         fechaVencimiento: "2023-12-31",
-        imagen: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1416&q=80" 
+        imagen: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1416&q=80"
     },
     {
         id: 2,
@@ -23,7 +23,7 @@ const productos = [
         precio: 3.00,
         stock: 30,
         fechaVencimiento: "2023-11-30",
-        imagen: "https://i.blogs.es/ba1ea2/como-hacer-malteada-de-fresa-1-/1366_2000.jpg" 
+        imagen: "https://i.blogs.es/ba1ea2/como-hacer-malteada-de-fresa-1-/1366_2000.jpg"
     },
     {
         id: 3,
@@ -31,7 +31,7 @@ const productos = [
         precio: 2.50,
         stock: 40,
         fechaVencimiento: "2023-12-31",
-        imagen: "https://www.recetasderechupete.com/wp-content/uploads/2019/07/shutterstock_1010248351.jpg" 
+        imagen: "https://www.recetasderechupete.com/wp-content/uploads/2019/07/shutterstock_1010248351.jpg"
     },
     {
         id: 4,
@@ -39,7 +39,7 @@ const productos = [
         precio: 3.00,
         stock: 25,
         fechaVencimiento: "2023-11-30",
-        imagen: "https://s3.amazonaws.com/takami.co/thumbnails/productimage/5aa0da58d445483b9babf5b8339351a1/62wfeqvj7lilyjvoapnumd_1280_800.jpg" 
+        imagen: "https://s3.amazonaws.com/takami.co/thumbnails/productimage/5aa0da58d445483b9babf5b8339351a1/62wfeqvj7lilyjvoapnumd_1280_800.jpg"
     },
     {
         id: 5,
@@ -47,7 +47,7 @@ const productos = [
         precio: 2.50,
         stock: 35,
         fechaVencimiento: "2023-12-31",
-        imagen: "https://elmundoenrecetas.s3.amazonaws.com/uploads/recipe/picture/646/helado_de_fresa_casero_2.webp" 
+        imagen: "https://elmundoenrecetas.s3.amazonaws.com/uploads/recipe/picture/646/helado_de_fresa_casero_2.webp"
     },
     {
         id: 6,
@@ -55,7 +55,7 @@ const productos = [
         precio: 3.00,
         stock: 20,
         fechaVencimiento: "2023-11-30",
-        imagen: "https://i.blogs.es/c6f09d/como-hacer-malteada-chocolate-cremosa-receta-facil-mundo/1366_2000.jpg" 
+        imagen: "https://i.blogs.es/c6f09d/como-hacer-malteada-chocolate-cremosa-receta-facil-mundo/1366_2000.jpg"
     },
     {
         id: 7,
@@ -63,7 +63,7 @@ const productos = [
         precio: 2.50,
         stock: 45,
         fechaVencimiento: "2023-12-31",
-        imagen: "https://lh3.googleusercontent.com/-vYhp6GbzUos/YK_LYpmMTsI/AAAAAAAAISo/JNXFySqrVm0bjlvs-SU2bdL5-8sxg6F6wCLcBGAsYHQ/Helado%2Bde%2BCookies%2B2.jpg" 
+        imagen: "https://lh3.googleusercontent.com/-vYhp6GbzUos/YK_LYpmMTsI/AAAAAAAAISo/JNXFySqrVm0bjlvs-SU2bdL5-8sxg6F6wCLcBGAsYHQ/Helado%2Bde%2BCookies%2B2.jpg"
     },
     {
         id: 8,
@@ -71,7 +71,7 @@ const productos = [
         precio: 3.00,
         stock: 15,
         fechaVencimiento: "2023-11-30",
-        imagen: "https://img-global.cpcdn.com/recipes/eafdfa385aea7985/640x640sq70/photo.webp" 
+        imagen: "https://img-global.cpcdn.com/recipes/eafdfa385aea7985/640x640sq70/photo.webp"
     },
     {
         id: 9,
@@ -79,7 +79,7 @@ const productos = [
         precio: 2.50,
         stock: 30,
         fechaVencimiento: "2023-12-31",
-        imagen: "https://i.blogs.es/6b8c1d/receta-de-helado-de-mango-facil/1366_2000.jpg" 
+        imagen: "https://i.blogs.es/6b8c1d/receta-de-helado-de-mango-facil/1366_2000.jpg"
     },
     {
         id: 10,
@@ -87,7 +87,7 @@ const productos = [
         precio: 3.00,
         stock: 10,
         fechaVencimiento: "2023-11-30",
-        imagen: "https://www.recetasnestle.com.mx/sites/default/files/styles/recipe_detail_desktop/public/srh_recipes/965be018fa900b8cc96d6fa3ed774fb0.webp?itok=F5qDrPwB" 
+        imagen: "https://www.recetasnestle.com.mx/sites/default/files/styles/recipe_detail_desktop/public/srh_recipes/965be018fa900b8cc96d6fa3ed774fb0.webp?itok=F5qDrPwB"
     }
 ];
 
@@ -96,73 +96,138 @@ const productos = [
 let carrito = [];
 let opciones
 
-/* do {
-    opciones = parseInt(prompt("Bienvenido, digite una opción:\n1. Mostrar productos\n2. Promociones\n3. Disponibilidad\n4. Productos mas economico\n6. Carrito y Salir"));
+/* function realizarPago() {
+    obtenerCarritoDeLocalStorage();
 
-    switch (opciones) {
-        case 1:
-            let opcion = "";
-
-            while (opcion !== "OK") {
-                let id = parseInt(prompt("Digite el número del producto que desea comprar:\n" + mostrarProductos()));
-                if (!isNaN(id)) {
-                    let cantidad = parseInt(prompt("Digite la cantidad que desea: "));
-
-                    if (!isNaN(cantidad)) {
-                        if (validarStock(id, cantidad)) {
-                            agregarAlCarrito(id, cantidad);
-                        }
-                    } else {
-                        alert("Cantidad inválida. Por favor, ingrese un número válido.");
-                    }
-                } else {
-                    alert("ID de producto inválido. Por favor, ingrese un número válido.");
-                }
-                opcion = prompt("Enter para continuar comprando o escriba 'OK' para terminar de comprar y volver al menú principal.");
-            }
-            break;
-        case 2:
-            mostrarPromociones();
-            break;
-        case 3:
-            mostrarDisponibilidad();
-            break;
-        case 4:
-            mostrarProductoMasEconomico();
-            break;
-    }
-} while (opciones !== 6);
-
-if (opciones == 6) {
-    mostrarCarrito();
-
-}
- */
-function pagar(valorTotal, cantidadRecibido) {
-    if (cantidadRecibido >= valorTotal) {
-        const cambio = Math.round(cantidadRecibido - valorTotal);
-        alert(`Cambio: $${cambio}`);
+    if (carrito.length === 0) {
+        swal("Carrito vacío", "No hay productos en el carrito para pagar.", "info");
     } else {
-        alert("La cantidad recibida es insuficiente para cubrir el total de la compra.");
+        const subtotal = calcularSubtotal();
+        const iva = Math.round(subtotal * 0.21);
+        const total = subtotal + iva;
+
+        const now = luxon.DateTime.local();
+        const formattedDate = now.toFormat("yyyy-MM-dd HH:mm:ss");
+
+        const factura = generarFactura(carrito, subtotal, iva, total, formattedDate);
+
+        swal({
+            title: "Pagar",
+            text: `El subtotal es: $${subtotal}\nIVA (21%): $${iva}\nTotal a pagar: $${total}\n\n${factura}`,
+            icon: "info",
+            buttons: ["Cancelar", "Pagar"],
+        }).then((willPay) => {
+            if (willPay) {
+                // Realizar la acción de pago aquí
+                // Por ejemplo, podrías mostrar un mensaje de éxito y limpiar el carrito.
+                swal("Pago realizado", "Gracias por tu compra. El carrito ha sido vaciado.", "success");
+                carrito = [];
+                guardarCarritoEnLocalStorage();
+                mostrarCarrito();
+            } else {
+                swal("Pago cancelado", "Tu carrito no ha sido modificado.", "info");
+            }
+        });
     }
+} */
+
+
+function realizarPago() {
+    obtenerCarritoDeLocalStorage();
+
+    if (carrito.length === 0) {
+        swal("Carrito vacío", "No hay productos en el carrito para pagar.", "info");
+    } else {
+        const subtotal = calcularSubtotal();
+        const iva = Math.round(subtotal * 0.21);
+        const total = subtotal + iva;
+
+        const now = luxon.DateTime.local();
+        const formattedDate = now.toFormat("yyyy-MM-dd HH:mm:ss");
+
+        const factura = generarFactura(carrito, subtotal, iva, total, formattedDate);
+
+        swal({
+            title: "Pagar",
+            text: `El subtotal es: $${subtotal}\nIVA (21%): $${iva}\nTotal a pagar: $${total}\n\n${factura}`,
+            icon: "info",
+            buttons: ["Cancelar", "Pagar"],
+        }).then((willPay) => {
+            if (willPay) {
+                // Simulación de pago utilizando la API ReqRes
+                fetch('https://reqres.in/api/users/1', { method: 'GET' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.data) {
+                            const pagoExitoso = Math.random() < 0.5; // Simulación de éxito o fallo de pago
+                            if (pagoExitoso) {
+                                swal("Pago exitoso", "El pago se ha realizado correctamente. ¡Gracias por tu compra!", "success");
+                                carrito = [];
+                                guardarCarritoEnLocalStorage();
+                                mostrarCarrito();
+                            } else {
+                                swal("Pago fallido", "El pago no pudo ser procesado. Por favor, inténtalo nuevamente.", "error");
+                            }
+                        } else {
+                            swal("Error en la respuesta", "La respuesta de la API no es la esperada.", "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud de pago:', error);
+                    });
+            } else {
+                swal("Pago cancelado", "Tu carrito no ha sido modificado.", "info");
+            }
+        });
+    }
+}
+
+function calcularSubtotal() {
+    let subtotal = 0;
+    carrito.forEach(item => {
+        subtotal += item.producto.precio * item.cantidad;
+    });
+    return subtotal;
+}
+
+
+function generarFactura(carrito, subtotal, iva, total, fecha) {
+    let factura = "Factura:\n\n";
+    factura += `Fecha y hora: ${fecha}\n\n`;
+    factura += "Detalle de la compra:\n\n";
+
+    carrito.forEach(item => {
+        factura += `Producto: ${item.producto.nombre}\n`;
+        factura += `Cantidad: ${item.cantidad}\n`;
+        factura += `Precio unitario: $${item.producto.precio}\n`;
+        factura += `Total: $${item.producto.precio * item.cantidad}\n\n`;
+    });
+
+    factura += `Subtotal: $${subtotal}\n`;
+    factura += `IVA (21%): $${iva}\n`;
+    factura += `Total a pagar: $${total}`;
+
+    return factura;
 }
 
 function agregarAlCarrito(idProducto, cantidad, valor) {
     const producto = productos.find(producto => producto.id === idProducto);
 
     if (producto) {
-        const itemEnCarrito = carrito.find(item => item.producto.id === idProducto);
-        if (itemEnCarrito) {
-            itemEnCarrito.cantidad += cantidad;
-        } else {
-            carrito.push({ producto, cantidad, valor });
+        if (validarStock(idProducto, cantidad)) {
+            const itemEnCarrito = carrito.find(item => item.producto.id === idProducto);
+            if (itemEnCarrito) {
+                itemEnCarrito.cantidad += cantidad;
+            } else {
+                carrito.push({ producto, cantidad, valor });
+            }
+
+            reducirStock(producto.id, cantidad);
+            guardarCarritoEnLocalStorage();
+            swal("Agregado!", `Se agregó ${cantidad} ${producto.nombre} al carrito.`, "success");
         }
-        
-        reducirStock(producto.id, cantidad);
-        guardarCarritoEnLocalStorage();
-        alert(`Se agregó ${cantidad} ${producto.nombre} al carrito.`);
     } else {
-        alert(`El producto con ID ${idProducto} no existe.`);
+        swal("Información", `El producto con ID ${idProducto} no existe.`, "info");
     }
 }
 
@@ -183,7 +248,8 @@ function obtenerCarritoDeLocalStorage() {
 function mostrarCarrito() {
     obtenerCarritoDeLocalStorage();
     if (carrito.length === 0) {
-        alert("El carrito está vacío.");
+        swal("No hay productos", "El carrito está vacío.", "info");
+
     } else {
         const tableBody = document.querySelector('#carrito-table tbody');
         tableBody.innerHTML = '';
@@ -239,18 +305,18 @@ function reducirStock(id, cantidad) {
 
 function validarStock(idProducto, cantidad) {
     const producto = productos.find(producto => producto.id === idProducto);
-    let estado;
+
     if (producto) {
         if (cantidad <= producto.stock) {
-            estado = true;
+            return true;
         } else {
-            alert(`Lo sentimos, no hay suficiente stock disponible. Stock actual: ${producto.stock}.`);
-            estado = false;
+            swal("Unidades insuficientes", `Lo sentimos, no hay suficiente stock disponible. Stock actual: ${producto.stock}.`, "error");
+            return false;
         }
     } else {
-        alert(`El producto con ID ${idProducto} no existe.`);
+        swal("No encontrado", `El producto con ID ${idProducto} no existe.`, "error");
+        return false;
     }
-    return estado;
 }
 
 function mostrarProductos() {
@@ -263,10 +329,11 @@ function mostrarProductos() {
                     src="${producto.imagen}"
                     width="auto" height="150px"/>
                 <div class="card-body text-center mx-auto">
-                    <div class='cvp'>
+                    <div class='cvp align-items-center d-flex flex-column gap-1'>
                         <h5 class="card-title font-weight-bold">${producto.nombre}</h5>
                         <p class="card-text">$${producto.precio}</p>
-                        <button class="btn btn-primary cart px-auto" onclick="agregarAlCarrito(${producto.id}, 1, ${producto.precio})">ADD TO CART</button>
+                        <input type="number" id="cantidad-${producto.id}" min="1" value="1" style="width: 60px;  text-align: center;">
+                        <button class="btn btn-primary cart px-auto" onclick="agregarAlCarrito(${producto.id}, document.getElementById('cantidad-${producto.id}').value, ${producto.precio})">ADD TO CART</button>
                     </div>
                 </div>
             </div>
@@ -290,26 +357,26 @@ function mostrarPromociones() {
     });
 
     if (promociones.length === 0) {
-        alert("No hay promociones disponibles en este momento.");
+        swal("Sin promociones ", "No hay promociones disponibles en este momento.", "info");
     } else {
-        alert("¡Promociones disponibles!");
         let mensaje;
         promociones.forEach(producto => {
             const descuento = producto.precio * 0.2; // Aplicar un descuento del 20%
             const precioPromocional = producto.precio - descuento;
             mensaje += `Producto: ${producto.nombre} Precio: $${producto.precio} Descuento: $${descuento} Precio promocional: $${precioPromocional} \n`;
         });
-        return mensaje;
+        return swal("Información", mensaje, "info");
+
     }
 }
 
 
 function mostrarDisponibilidad() {
-    let mensaje;
+    let mensaje = "";
     productos.forEach(producto => {
         mensaje += `${producto.nombre} Disponible: ${producto.stock} Und\n`;
     });
-    return alert(mensaje);
+    return swal("Información", mensaje, "info");
 
 }
 
@@ -321,5 +388,5 @@ function mostrarProductoMasEconomico() {
             productoMasEconomico = productos[i];
         }
     }
-    return alert(`El producto más económico es: ${productoMasEconomico.nombre} con precio: $${productoMasEconomico.precio}`);
+    return swal("Información", `El producto más económico es: ${productoMasEconomico.nombre} con precio: $${productoMasEconomico.precio}`, "info");
 }
