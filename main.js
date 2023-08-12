@@ -96,41 +96,6 @@ const productos = [
 let carrito = [];
 let opciones
 
-/* function realizarPago() {
-    obtenerCarritoDeLocalStorage();
-
-    if (carrito.length === 0) {
-        swal("Carrito vacío", "No hay productos en el carrito para pagar.", "info");
-    } else {
-        const subtotal = calcularSubtotal();
-        const iva = Math.round(subtotal * 0.21);
-        const total = subtotal + iva;
-
-        const now = luxon.DateTime.local();
-        const formattedDate = now.toFormat("yyyy-MM-dd HH:mm:ss");
-
-        const factura = generarFactura(carrito, subtotal, iva, total, formattedDate);
-
-        swal({
-            title: "Pagar",
-            text: `El subtotal es: $${subtotal}\nIVA (21%): $${iva}\nTotal a pagar: $${total}\n\n${factura}`,
-            icon: "info",
-            buttons: ["Cancelar", "Pagar"],
-        }).then((willPay) => {
-            if (willPay) {
-                // Realizar la acción de pago aquí
-                // Por ejemplo, podrías mostrar un mensaje de éxito y limpiar el carrito.
-                swal("Pago realizado", "Gracias por tu compra. El carrito ha sido vaciado.", "success");
-                carrito = [];
-                guardarCarritoEnLocalStorage();
-                mostrarCarrito();
-            } else {
-                swal("Pago cancelado", "Tu carrito no ha sido modificado.", "info");
-            }
-        });
-    }
-} */
-
 
 async function realizarPago() {
     obtenerCarritoDeLocalStorage();
@@ -160,12 +125,9 @@ async function realizarPago() {
                 const data = await response.json();
                 
                 if (data.data) {
-                    const pagoExitoso = Math.random() < 0.5; // Simulación de éxito o fallo de pago
-                    if (pagoExitoso) {
-                        // Mostrar el mensaje de éxito de transacción
-                        await swal("Transacción exitosa", "El pago se ha procesado correctamente.", "success");
-
-                        // Vaciar el carrito y actualizar la interfaz
+                    const pagoExitoso = Math.random() < 0.5; // Simulación de éxito o fallo del pago
+                    if (pagoExitoso) {                        
+                        await swal("Transacción exitosa", "El pago se ha procesado correctamente.", "success");                   
                         carrito = [];
                         guardarCarritoEnLocalStorage();
                         mostrarCarrito();
