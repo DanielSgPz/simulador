@@ -132,7 +132,7 @@ let opciones
 } */
 
 
-function realizarPago() {
+async function realizarPago() {
     obtenerCarritoDeLocalStorage();
 
     if (carrito.length === 0) {
@@ -147,40 +147,43 @@ function realizarPago() {
 
         const factura = generarFactura(carrito, subtotal, iva, total, formattedDate);
 
-        swal({
+        const willPay = await swal({
             title: "Pagar",
             text: `El subtotal es: $${subtotal}\nIVA (21%): $${iva}\nTotal a pagar: $${total}\n\n${factura}`,
             icon: "info",
             buttons: ["Cancelar", "Pagar"],
-        }).then((willPay) => {
-            if (willPay) {
-                // Simulación de pago utilizando la API ReqRes
-                fetch('https://reqres.in/api/users/1', { method: 'GET' })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.data) {
-                            const pagoExitoso = Math.random() < 0.5; // Simulación de éxito o fallo de pago
-                            if (pagoExitoso) {
-                                swal("Pago exitoso", "El pago se ha realizado correctamente. ¡Gracias por tu compra!", "success");
-                                carrito = [];
-                                guardarCarritoEnLocalStorage();
-                                mostrarCarrito();
-                            } else {
-                                swal("Pago fallido", "El pago no pudo ser procesado. Por favor, inténtalo nuevamente.", "error");
-                            }
-                        } else {
-                            swal("Error en la respuesta", "La respuesta de la API no es la esperada.", "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error en la solicitud de pago:', error);
-                    });
-            } else {
-                swal("Pago cancelado", "Tu carrito no ha sido modificado.", "info");
-            }
         });
+
+        if (willPay) {
+            try {
+                const response = await fetch('https://reqres.in/api/users/1');
+                const data = await response.json();
+                
+                if (data.data) {
+                    const pagoExitoso = Math.random() < 0.5; // Simulación de éxito o fallo de pago
+                    if (pagoExitoso) {
+                        // Mostrar el mensaje de éxito de transacción
+                        await swal("Transacción exitosa", "El pago se ha procesado correctamente.", "success");
+
+                        // Vaciar el carrito y actualizar la interfaz
+                        carrito = [];
+                        guardarCarritoEnLocalStorage();
+                        mostrarCarrito();
+                    } else {
+                        await swal("Transacción fallida", "El pago no pudo ser procesado. Por favor, inténtalo nuevamente.", "error");
+                    }
+                } else {
+                    await swal("Error en la respuesta", "La respuesta de la API no es la esperada.", "error");
+                }
+            } catch (error) {
+                console.error('Error en la solicitud de pago:', error);
+            }
+        } else {
+            swal("Pago cancelado", "Tu carrito no ha sido modificado.", "info");
+        }
     }
 }
+
 
 function calcularSubtotal() {
     let subtotal = 0;
